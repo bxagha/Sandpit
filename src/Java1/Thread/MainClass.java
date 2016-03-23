@@ -5,20 +5,24 @@ package Java1.Thread;
  */
 public class MainClass {
     static class Recipe implements Runnable{
-        void cook(){
-            System.out.println("...");
-        }
 
         @Override
         public void run() {
-            System.out.println("...");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.err.println("...");
+            System.err.println(Thread.currentThread().getName());
         }
     }
-    public static void main(String[] args) {
-        System.out.println(Thread.currentThread().getName());
-        Thread first = new Thread();
+    public static void main(String[] args) throws InterruptedException {
+        Thread first = new Thread(new Recipe());
         first.setName("first");
         first.start();
-        System.out.println(first.getName());
+        Thread.sleep(3000);
+        System.err.println(first.getName());
+        System.err.println(Thread.currentThread().getName());
     }
 }
